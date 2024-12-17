@@ -13,10 +13,10 @@ pacman::p_load(
 # 2. POPULATION DATA
 #-------------------
 
-url <- "https://services1.arcgis.com/ZGrptGlLV2IILABw/arcgis/rest/services/Pop_Admin1/FeatureServer/0"
+url1 <- "https://services1.arcgis.com/ZGrptGlLV2IILABw/arcgis/rest/services/Pop_Admin1/FeatureServer/0"
 
 data <- arcgislayers::arc_open(
-    url
+    url1
 )
 
 admin1_population <- arcgislayers::arc_select(
@@ -24,7 +24,7 @@ admin1_population <- arcgislayers::arc_select(
     fields = c(
         "HASC_1", "ISO2", "Population"
     ),
-    where = "ISO2 = 'AT'"
+    where = "ISO2 = 'PK'"
 ) |>
 sf::st_drop_geometry()
 
@@ -32,12 +32,13 @@ sf::st_drop_geometry()
 #--------------------------
 
 country_admin1_sf <- geodata::gadm(
-    country = "AUT",
+    country = "PAK",
     level = 1,
     path = getwd()
 ) |>
     sf::st_as_sf() |>
     sf::st_cast("MULTIPOLYGON")
+
 
 # 4. MERGE BOUNDARIES AND POPULATION DATA
 #----------------------------------------
